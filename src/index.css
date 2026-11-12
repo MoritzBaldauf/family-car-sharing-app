@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+
+  /* Apple iOS Light Theme Palette */
+  --bg-canvas: #f2f2f7;
+  --bg-surface: #ffffff;
+  --bg-surface-secondary: #f8f8fb;
+  --bg-surface-elevated: #ffffff;
+  --border-subtle: #e5e5ea;
+  --border-strong: #d1d1d6;
+  --text-primary: #1c1c1e;
+  --text-secondary: #8e8e93;
+  --text-tertiary: #c7c7cc;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-subtle: rgba(0, 113, 227, 0.1);
+}
+
+.dark {
+  /* Apple iOS Dark Theme Palette */
+  --bg-canvas: #000000;
+  --bg-surface: #1c1c1e;
+  --bg-surface-secondary: #2c2c2e;
+  --bg-surface-elevated: #2c2c2e;
+  --border-subtle: #38383a;
+  --border-strong: #48484a;
+  --text-primary: #ffffff;
+  --text-secondary: #98989d;
+  --text-tertiary: #636366;
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --accent-subtle: rgba(10, 132, 255, 0.15);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbars - iOS subtle */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(142, 142, 147, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(142, 142, 147, 0.5);
+}
+
+/* Hide scrollbar for clean horizontal strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* iOS Safe Area Helpers */
+.pt-safe {
+  padding-top: max(0.75rem, var(--sat));
+}
+
+.pb-safe {
+  padding-bottom: max(1rem, var(--sab));
+}
+
+.pb-tabbar {
+  padding-bottom: max(5.5rem, calc(var(--sab) + 4.5rem));
+}
+
+/* Active touch feedback */
+.active-press:active {
+  transform: scale(0.97);
+  opacity: 0.92;
+}
+
+/* Smooth spring animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-sheet-up {
+  animation: slideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Apple iOS Tab Page Transition Animations */
+@keyframes iosSlideInRight {
+  0% {
+    transform: translateX(38px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes iosSlideInLeft {
+  0% {
+    transform: translateX(-38px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-ios-slide-right {
+  animation: iosSlideInRight 0.26s cubic-bezier(0.25, 1, 0.5, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-ios-slide-left {
+  animation: iosSlideInLeft 0.26s cubic-bezier(0.25, 1, 0.5, 1) both;
+  will-change: transform, opacity;
+}
